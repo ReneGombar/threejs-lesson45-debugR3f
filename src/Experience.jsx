@@ -2,9 +2,16 @@ import { OrbitControls } from '@react-three/drei'
 import Cube from './Cube.jsx'
 //this is the library for gui controls
 import { button, useControls } from 'leva'
+//import performance monitoring
+import { Perf } from 'r3f-perf'
 
 export default function Experience()
 {   
+    //show perf panel
+    const {performanceVisible} = useControls({
+        performanceVisible : true
+    })
+    
     //destructure our object to get values
     const {position, colorForSphere, visible} = useControls("sphere controls",{
         position: 
@@ -32,9 +39,12 @@ export default function Experience()
         }
     })
 
-    console.log(position)
+
+
+
     return <>
 
+        {performanceVisible ? <Perf position="top-left"/> : null}
         <OrbitControls makeDefault />
 
         <directionalLight position={ [ 1, 2, 3 ] } intensity={ 1.5 } />
